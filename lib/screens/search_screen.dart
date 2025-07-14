@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:async';
+
 import 'package:movie_show_tracker/providers/movie_search_provider.dart';
 import 'package:movie_show_tracker/widgets/genre_list_widget.dart';
 import 'package:movie_show_tracker/widgets/movie_list_widget.dart';
@@ -76,7 +77,11 @@ class _SearchPageState extends ConsumerState<SearchPage> {
               ),
             ),
             if (searchQuery.isEmpty) ...[
-              MovieRowWidget(title: "Popular", movieType: "popular"),
+              MovieRowWidget(
+                title: "Popular",
+                movieType: "popular",
+                isMovie: true,
+              ),
               SizedBox(height: 10),
               Align(
                 alignment: Alignment.centerLeft,

@@ -14,9 +14,68 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             children: [
               AutoScrollCarousel(),
-              MovieRowWidget(title: "New", movieType: "now_playing"),
-              MovieRowWidget(title: "Top Rated", movieType: "top_rated"),
-              MovieRowWidget(title: "Popular", movieType: "popular"),
+              SizedBox(height: 10),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        "Movies",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      MovieRowWidget(
+                        title: "New",
+                        movieType: "now_playing",
+                        isMovie: true,
+                      ),
+                      MovieRowWidget(
+                        title: "Top Rated",
+                        movieType: "top_rated",
+                        isMovie: true,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 18),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        "Shows",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      MovieRowWidget(
+                        title: "Popular",
+                        movieType: "popular",
+                        isMovie: false,
+                      ),
+                      MovieRowWidget(
+                        title: "Top Rated",
+                        movieType: "top_rated",
+                        isMovie: false,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),

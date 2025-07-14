@@ -12,7 +12,9 @@ class AutoScrollCarousel extends ConsumerStatefulWidget {
 class _AutoScrollCarouselState extends ConsumerState<AutoScrollCarousel> {
   @override
   Widget build(BuildContext context) {
-    final movieLi = ref.watch(movieListProvider("now_playing"));
+    final movieLi = ref.watch(
+      movieShowsListProvider((isMovie: true, type: "now_playing")),
+    );
     return SizedBox(
       height: 195,
       child: movieLi.when(

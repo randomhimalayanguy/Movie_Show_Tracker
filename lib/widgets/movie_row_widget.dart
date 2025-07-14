@@ -7,10 +7,12 @@ import 'package:movie_show_tracker/widgets/movie_tile_grid_widget.dart';
 class MovieRowWidget extends ConsumerStatefulWidget {
   final String title;
   final String movieType;
+  final bool isMovie;
   const MovieRowWidget({
     super.key,
     required this.title,
     required this.movieType,
+    required this.isMovie,
   });
 
   @override
@@ -20,7 +22,9 @@ class MovieRowWidget extends ConsumerStatefulWidget {
 class _MovieRowWidgetState extends ConsumerState<MovieRowWidget> {
   @override
   Widget build(BuildContext context) {
-    final movieLi = ref.watch(movieListProvider(widget.movieType));
+    final movieLi = ref.watch(
+      movieShowsListProvider((isMovie: widget.isMovie, type: widget.movieType)),
+    );
     return Column(
       children: [
         Padding(
@@ -38,6 +42,7 @@ class _MovieRowWidgetState extends ConsumerState<MovieRowWidget> {
                     builder: (context) => MovieTypeListScreen(
                       movieType: widget.movieType,
                       name: widget.title,
+                      isMovie: widget.isMovie,
                     ),
                   ),
                 ),

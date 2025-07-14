@@ -24,7 +24,7 @@ class Movie {
     return Movie(
       posterImg: fullPosterUrl,
       id: json["id"].toString(),
-      title: json["title"],
+      title: json["title"] ?? json["name"],
       backgImg: fullBackgUrl,
     );
   }
