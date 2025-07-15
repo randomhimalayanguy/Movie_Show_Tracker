@@ -4,7 +4,8 @@ import 'package:movie_show_tracker/widgets/movie_card_widget.dart';
 
 class MovieListWidget extends StatelessWidget {
   final List<Movie> data;
-  const MovieListWidget({super.key, required this.data});
+  final bool isMovie;
+  const MovieListWidget({super.key, required this.data, required this.isMovie});
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +18,7 @@ class MovieListWidget extends StatelessWidget {
         childAspectRatio: 0.7,
       ),
       itemBuilder: (context, index) => MovieCardWidget(
+        isMovie: isMovie,
         data: Movie(
           id: data[index].id,
           backgImg: data[index].backgImg,

@@ -23,7 +23,7 @@ class MovieTypeListScreen extends ConsumerWidget {
       appBar: AppBar(title: Text(name)),
       body: SingleChildScrollView(
         child: list.when(
-          data: (data) => MovieListWidget(data: data),
+          data: (data) => MovieListWidget(data: data, isMovie: isMovie),
           error: (error, stackTrace) => Center(child: Text("$error")),
           loading: () => Center(child: CircularProgressIndicator()),
         ),

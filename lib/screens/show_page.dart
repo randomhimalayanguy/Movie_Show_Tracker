@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_show_tracker/providers/movie_provider.dart';
+import 'package:movie_show_tracker/providers/show_provider.dart';
 
-class MoviePage extends ConsumerWidget {
+class ShowPage extends ConsumerWidget {
   final String id;
 
-  const MoviePage({super.key, required this.id});
+  const ShowPage({super.key, required this.id});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final movieDetail = ref.watch(movieProvider(id));
+    final movieDetail = ref.watch(showProvider(id));
 
     return Scaffold(
-      appBar: AppBar(title: Text("Movie Detail")),
+      appBar: AppBar(title: Text("Show Detail")),
       body: movieDetail.when(
         data: (data) {
           return SingleChildScrollView(
@@ -48,7 +48,7 @@ class MoviePage extends ConsumerWidget {
                             vertical: 2,
                             horizontal: 6,
                           ),
-                          child: Text("IMDb - ${data.imdbRating}"),
+                          child: Text("Score - ${data.score}"),
                         ),
                       ),
                       const SizedBox(width: 15),
@@ -56,13 +56,6 @@ class MoviePage extends ConsumerWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.orange,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 2,
-                            horizontal: 6,
-                          ),
-                          child: Text("Metascore - ${data.metascore}"),
                         ),
                       ),
                     ],

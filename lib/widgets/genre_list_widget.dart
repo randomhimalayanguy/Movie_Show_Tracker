@@ -23,6 +23,7 @@ class GenreListWidget extends ConsumerWidget {
             builder: (context) => MovieListPage(
               genreId: genres[index].id,
               genre: genres[index].name,
+              isMovie: true,
             ),
           ),
         ),

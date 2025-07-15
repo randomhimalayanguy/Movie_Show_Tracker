@@ -21,8 +21,7 @@ final movieShowsListProvider =
       if (response.statusCode == 200) {
         final Map<String, dynamic> map = jsonDecode(response.body);
         final List<dynamic>? data = map["results"];
-        int len = (data!.length > 10) ? 10 : data.length;
-        for (int i = 0; i < len; i++) {
+        for (int i = 0; i < data!.length; i++) {
           li.add(Movie.fromJson(data[i]));
         }
         return li;

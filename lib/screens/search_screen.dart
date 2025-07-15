@@ -90,7 +90,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
               GenreListWidget(),
             ] else
               searchLi.when(
-                data: (data) => MovieListWidget(data: data),
+                data: (data) => MovieListWidget(data: data, isMovie: true),
                 error: (error, stackTrace) =>
                     Center(child: Text("Lol no data")),
                 loading: () => Center(child: CircularProgressIndicator()),

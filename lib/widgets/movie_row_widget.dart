@@ -51,7 +51,7 @@ class _MovieRowWidgetState extends ConsumerState<MovieRowWidget> {
             ],
           ),
         ),
-        MovieTileGrid(movieLi: movieLi),
+        MovieTileGrid(movieLi: movieLi, isMovie: widget.isMovie),
       ],
     );
   }

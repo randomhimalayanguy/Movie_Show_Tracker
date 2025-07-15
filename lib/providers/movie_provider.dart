@@ -7,10 +7,10 @@ import 'package:movie_show_tracker/models/movie_detail.dart';
 
 final movieProvider = FutureProvider.family<MovieDetail, String>((
   ref,
-  movidID,
+  id,
 ) async {
   final response1 = await http.get(
-    Uri.parse("https://api.themoviedb.org/3/movie/$movidID?api_key=$movieAPI"),
+    Uri.parse("https://api.themoviedb.org/3/movie/$id?api_key=$movieAPI"),
   );
 
   final String imdbId = jsonDecode(response1.body)["imdb_id"];

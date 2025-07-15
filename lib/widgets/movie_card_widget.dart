@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:movie_show_tracker/models/movie.dart';
 import 'package:movie_show_tracker/screens/movie_page.dart';
+import 'package:movie_show_tracker/screens/show_page.dart';
 
 class MovieCardWidget extends StatelessWidget {
   final Movie data;
-  const MovieCardWidget({super.key, required this.data});
+  final bool isMovie;
+  const MovieCardWidget({super.key, required this.data, required this.isMovie});
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +38,11 @@ class MovieCardWidget extends StatelessWidget {
           ],
         ),
       ),
-      // onLongPress: () {
-      //   print("Add this");
-      // },
       onTap: () => Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => MoviePage(movieId: data.id)),
+        MaterialPageRoute(
+          builder: (context) =>
+              (isMovie) ? MoviePage(id: data.id) : ShowPage(id: data.id),
+        ),
       ),
     );
   }

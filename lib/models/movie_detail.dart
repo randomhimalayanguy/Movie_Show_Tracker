@@ -1,4 +1,6 @@
-class MovieDetail {
+import 'package:movie_show_tracker/models/media.dart';
+
+class MovieDetail extends Media {
   final String title;
   final String overview;
   final String poster;
@@ -27,13 +29,13 @@ class MovieDetail {
         : "https://via.placeholder.com/500x750?text=No+Image";
 
     return MovieDetail(
-      title: source1["title"],
+      title: source1["title"] ?? source1["name"],
       overview: source1["overview"],
       poster: fullPosterUrl,
-      runtime: source1["runtime"],
+      runtime: source1["runtime"] ?? 0,
       released: source2["Released"],
-      imdbRating: source2["imdbRating"],
-      metascore: source2["Metascore"],
+      imdbRating: source2["imdbRating"] ?? "",
+      metascore: source2["Metascore"] ?? "",
     );
   }
 }
