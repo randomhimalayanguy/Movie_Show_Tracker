@@ -18,6 +18,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
   final TextEditingController _controller = TextEditingController();
   Timer? debounce;
   String searchQuery = "";
+  bool isMovie = true;
 
   void search(String value) {
     if (debounce?.isActive ?? false) debounce?.cancel();
@@ -50,6 +51,42 @@ class _SearchPageState extends ConsumerState<SearchPage> {
       child: SingleChildScrollView(
         child: Column(
           children: [
+            SizedBox(
+              height: 40,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      color: (isMovie) ? Colors.blue : Colors.white,
+                      child: TextButton(
+                        onPressed: () => setState(() => isMovie = true),
+                        child: Text(
+                          "Movies",
+                          style: TextStyle(
+                            color: (isMovie) ? Colors.white : Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      color: (!isMovie) ? Colors.blue : Colors.white,
+                      child: TextButton(
+                        onPressed: () => setState(() => isMovie = false),
+                        child: Text(
+                          "Shows",
+                          style: TextStyle(
+                            color: (!isMovie) ? Colors.white : Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 10),
             Container(
               decoration: BoxDecoration(
                 color: Colors.blueGrey,
@@ -80,17 +117,17 @@ class _SearchPageState extends ConsumerState<SearchPage> {
               MovieRowWidget(
                 title: "Popular",
                 movieType: "popular",
-                isMovie: true,
+                isMovie: isMovie,
               ),
               SizedBox(height: 10),
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text("Genres", style: TextStyle(fontSize: 22)),
               ),
-              GenreListWidget(),
+              GenreListWidget(isMovie: isMovie),
             ] else
               searchLi.when(
-                data: (data) => MovieListWidget(data: data, isMovie: true),
+                data: (data) => MovieListWidget(data: data, isMovie: isMovie),
                 error: (error, stackTrace) =>
                     Center(child: Text("Lol no data")),
                 loading: () => Center(child: CircularProgressIndicator()),

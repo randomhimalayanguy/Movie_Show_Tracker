@@ -4,11 +4,12 @@ import 'package:movie_show_tracker/providers/genre_provider.dart';
 import 'package:movie_show_tracker/screens/movie_list_page.dart';
 
 class GenreListWidget extends ConsumerWidget {
-  const GenreListWidget({super.key});
+  final bool isMovie;
+  const GenreListWidget({super.key, required this.isMovie});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final genres = ref.watch(genreProvider);
+    final genres = ref.watch(genreProvider(isMovie));
     return GridView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
@@ -23,7 +24,7 @@ class GenreListWidget extends ConsumerWidget {
             builder: (context) => MovieListPage(
               genreId: genres[index].id,
               genre: genres[index].name,
-              isMovie: true,
+              isMovie: isMovie,
             ),
           ),
         ),

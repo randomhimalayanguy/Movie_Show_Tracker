@@ -16,7 +16,9 @@ class MovieListPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final movieList = ref.watch(movieGenreListProvider(genreId));
+    final movieList = ref.watch(
+      movieGenreListProvider((id: genreId, isMovie: isMovie)),
+    );
     return Scaffold(
       appBar: AppBar(title: Text(genre)),
       body: Padding(
