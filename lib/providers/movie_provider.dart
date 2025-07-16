@@ -9,21 +9,12 @@ final movieProvider = FutureProvider.family<MovieDetail, String>((
   ref,
   id,
 ) async {
-  final response1 = await http.get(
+  final response = await http.get(
     Uri.parse("https://api.themoviedb.org/3/movie/$id?api_key=$movieAPI"),
   );
 
-  final String imdbId = jsonDecode(response1.body)["imdb_id"];
-
-  final response2 = await http.get(
-    Uri.parse("http://www.omdbAPI.com/?i=$imdbId&apikey=$omdbAPI"),
-  );
-
-  if (response1.statusCode == 200 && response2.statusCode == 200) {
-    return MovieDetail.fromJson(
-      jsonDecode(response1.body),
-      jsonDecode(response2.body),
-    );
+  if (response.statusCode == 200) {
+    return MovieDetail.fromJson(jsonDecode(response.body));
   } else {
     throw Exception("Can't load data");
   }

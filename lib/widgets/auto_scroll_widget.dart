@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_show_tracker/providers/movie_list_provider.dart';
+import 'package:movie_show_tracker/providers/content_list_provider.dart';
 
 class AutoScrollCarousel extends ConsumerStatefulWidget {
   const AutoScrollCarousel({super.key});
@@ -13,7 +13,7 @@ class _AutoScrollCarouselState extends ConsumerState<AutoScrollCarousel> {
   @override
   Widget build(BuildContext context) {
     final movieLi = ref.watch(
-      movieShowsListProvider((isMovie: true, type: "now_playing")),
+      contentListProvider((isMovie: true, type: "now_playing")),
     );
     return SizedBox(
       height: 195,
@@ -29,7 +29,7 @@ class _AutoScrollCarouselState extends ConsumerState<AutoScrollCarousel> {
                     width: MediaQuery.sizeOf(context).width - 30,
                     child: Stack(
                       children: [
-                        Image.network(data[index].backgImg, fit: BoxFit.cover),
+                        Image.network(data[index].backImg, fit: BoxFit.cover),
                         Padding(
                           padding: const EdgeInsets.only(bottom: 16),
                           child: Align(

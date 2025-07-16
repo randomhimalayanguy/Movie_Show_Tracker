@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:movie_show_tracker/models/movie.dart';
+import 'package:movie_show_tracker/models/media.dart';
 import 'package:movie_show_tracker/screens/movie_page.dart';
 import 'package:movie_show_tracker/screens/show_page.dart';
 
-class MovieCardWidget extends StatelessWidget {
-  final Movie data;
+class ContentCardWidget extends StatelessWidget {
+  final Media data;
   final bool isMovie;
-  const MovieCardWidget({super.key, required this.data, required this.isMovie});
+  const ContentCardWidget({
+    super.key,
+    required this.data,
+    required this.isMovie,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +26,7 @@ class MovieCardWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Image.network(
-                data.posterImg,
+                data.poster,
                 fit: BoxFit.cover,
                 // frameBuilder: ,
               ),

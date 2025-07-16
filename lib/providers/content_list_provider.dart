@@ -1,12 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:movie_show_tracker/constant_values.dart';
+import 'package:movie_show_tracker/models/media.dart';
 import 'dart:convert';
 
-import 'package:movie_show_tracker/models/movie.dart';
-
-final movieShowsListProvider =
-    FutureProvider.family<List<Movie>, ({String type, bool isMovie})>((
+final contentListProvider =
+    FutureProvider.family<List<Media>, ({String type, bool isMovie})>((
       ref,
       params,
     ) async {
@@ -17,12 +16,12 @@ final movieShowsListProvider =
         ),
       );
 
-      List<Movie> li = [];
+      List<Media> li = [];
       if (response.statusCode == 200) {
         final Map<String, dynamic> map = jsonDecode(response.body);
         final List<dynamic>? data = map["results"];
         for (int i = 0; i < data!.length; i++) {
-          li.add(Movie.fromJson(data[i]));
+          li.add(Media.fromJson(data[i]));
         }
         return li;
       } else {

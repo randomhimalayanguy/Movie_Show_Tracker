@@ -3,6 +3,7 @@ import 'package:movie_show_tracker/screens/home_screen.dart';
 import 'package:movie_show_tracker/screens/search_screen.dart';
 import 'package:movie_show_tracker/screens/settings_screen.dart';
 import 'package:movie_show_tracker/screens/watchlist_screen.dart';
+import 'package:movie_show_tracker/widgets/movie_show_selector_widget.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -26,7 +27,17 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(titles[curScreen])),
+      appBar: AppBar(
+        title: Text(titles[curScreen]),
+
+        actions: (curScreen == 1 || curScreen == 2)
+            ? [
+                MovieShowWidget(isMovie: true, type: "Movies"),
+                MovieShowWidget(isMovie: false, type: "Shows"),
+                SizedBox(width: 20),
+              ]
+            : [],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         enableFeedback: true,
         currentIndex: curScreen,

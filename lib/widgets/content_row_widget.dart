@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_show_tracker/providers/movie_list_provider.dart';
+import 'package:movie_show_tracker/providers/content_list_provider.dart';
 import 'package:movie_show_tracker/screens/movie_type_list_page.dart';
-import 'package:movie_show_tracker/widgets/movie_tile_grid_widget.dart';
+import 'package:movie_show_tracker/widgets/content_tile_grid_widget.dart';
 
-class MovieRowWidget extends ConsumerStatefulWidget {
+class ContentRowWidget extends ConsumerStatefulWidget {
   final String title;
   final String movieType;
   final bool isMovie;
-  const MovieRowWidget({
+  const ContentRowWidget({
     super.key,
     required this.title,
     required this.movieType,
@@ -16,14 +16,14 @@ class MovieRowWidget extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<MovieRowWidget> createState() => _MovieRowWidgetState();
+  ConsumerState<ContentRowWidget> createState() => _MovieRowWidgetState();
 }
 
-class _MovieRowWidgetState extends ConsumerState<MovieRowWidget> {
+class _MovieRowWidgetState extends ConsumerState<ContentRowWidget> {
   @override
   Widget build(BuildContext context) {
     final movieLi = ref.watch(
-      movieShowsListProvider((isMovie: widget.isMovie, type: widget.movieType)),
+      contentListProvider((isMovie: widget.isMovie, type: widget.movieType)),
     );
     return Column(
       children: [
@@ -51,7 +51,7 @@ class _MovieRowWidgetState extends ConsumerState<MovieRowWidget> {
             ],
           ),
         ),
-        MovieTileGrid(movieLi: movieLi, isMovie: widget.isMovie),
+        ContentTileGrid(movieLi: movieLi, isMovie: widget.isMovie),
       ],
     );
   }

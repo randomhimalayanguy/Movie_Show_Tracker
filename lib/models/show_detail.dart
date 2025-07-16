@@ -1,24 +1,17 @@
 import 'package:movie_show_tracker/models/media.dart';
 
 class ShowDetail extends Media {
-  final String title;
-  final String overview;
-  final String poster;
-  // final int runtime;
   final String released;
-  // final String metascore;
-  // final String imdbRating;
   final String status;
   final double score;
 
   ShowDetail({
-    required this.title,
-    required this.overview,
-    required this.poster,
-    // required this.runtime,
+    required super.title,
+    required super.overview,
+    required super.poster,
+    required super.id,
+    required super.backImg,
     required this.released,
-    // required this.imdbRating,
-    // required this.metascore,
     required this.status,
     required this.score,
   });
@@ -33,10 +26,11 @@ class ShowDetail extends Media {
       title: json["name"] ?? "",
       overview: json["overview"] ?? "",
       poster: fullPosterUrl,
-      // runtime: source1["runtime"] ?? 0,
       released: json["first_air_date"] ?? "",
       status: json["status"] ?? "Not airing",
       score: json["vote_average"] ?? 0.0,
+      backImg: "",
+      id: json["id"] as String,
     );
   }
 }

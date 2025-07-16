@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_show_tracker/models/genre.dart';
 
+/// This provider provides json of Movie and Shows genre
 final genreProvider = Provider.family<List<Genre>, bool>((ref, isMovie) {
   {
     final jsonMovie = {

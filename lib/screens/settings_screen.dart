@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-final themeProvider = StateProvider<ThemeData>((ref) => ThemeData.light());
+import 'package:movie_show_tracker/providers/helper_provider.dart';
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});

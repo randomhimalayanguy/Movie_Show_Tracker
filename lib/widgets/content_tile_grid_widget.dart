@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_show_tracker/models/movie.dart';
-import 'package:movie_show_tracker/widgets/movie_card_widget.dart';
+import 'package:movie_show_tracker/models/media.dart';
+import 'package:movie_show_tracker/widgets/content_card_widget.dart';
 
-class MovieTileGrid extends StatelessWidget {
-  final AsyncValue<List<Movie>> movieLi;
+class ContentTileGrid extends StatelessWidget {
+  final AsyncValue<List<Media>> movieLi;
   final bool isMovie;
-  const MovieTileGrid({
+  const ContentTileGrid({
     super.key,
     required this.movieLi,
     required this.isMovie,
@@ -23,7 +23,7 @@ class MovieTileGrid extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) => SizedBox(
               width: 120,
-              child: MovieCardWidget(data: data[index], isMovie: isMovie),
+              child: ContentCardWidget(data: data[index], isMovie: isMovie),
             ),
           );
         },

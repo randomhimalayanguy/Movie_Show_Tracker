@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_show_tracker/providers/helper_provider.dart';
+import 'package:movie_show_tracker/providers/content_search_provider.dart';
 import 'dart:async';
-
-import 'package:movie_show_tracker/providers/movie_search_provider.dart';
 import 'package:movie_show_tracker/widgets/genre_list_widget.dart';
-import 'package:movie_show_tracker/widgets/movie_list_widget.dart';
-import 'package:movie_show_tracker/widgets/movie_row_widget.dart';
+import 'package:movie_show_tracker/widgets/content_list_widget.dart';
+import 'package:movie_show_tracker/widgets/content_row_widget.dart';
 
 class SearchPage extends ConsumerStatefulWidget {
   const SearchPage({super.key});
@@ -45,48 +45,13 @@ class _SearchPageState extends ConsumerState<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    final searchLi = ref.watch(movieSearchProvider(searchQuery));
+    final searchLi = ref.watch(contentSearchProvider(searchQuery));
+    final isMovie = ref.watch(curTypeProvider);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 18),
       child: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: 40,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      color: (isMovie) ? Colors.blue : Colors.white,
-                      child: TextButton(
-                        onPressed: () => setState(() => isMovie = true),
-                        child: Text(
-                          "Movies",
-                          style: TextStyle(
-                            color: (isMovie) ? Colors.white : Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      color: (!isMovie) ? Colors.blue : Colors.white,
-                      child: TextButton(
-                        onPressed: () => setState(() => isMovie = false),
-                        child: Text(
-                          "Shows",
-                          style: TextStyle(
-                            color: (!isMovie) ? Colors.white : Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 10),
             Container(
               decoration: BoxDecoration(
                 color: Colors.blueGrey,
@@ -114,7 +79,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
               ),
             ),
             if (searchQuery.isEmpty) ...[
-              MovieRowWidget(
+              ContentRowWidget(
                 title: "Popular",
                 movieType: "popular",
                 isMovie: isMovie,
@@ -125,9 +90,10 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                 child: Text("Genres", style: TextStyle(fontSize: 22)),
               ),
               GenreListWidget(isMovie: isMovie),
+              //this is a comment to sett
             ] else
               searchLi.when(
-                data: (data) => MovieListWidget(data: data, isMovie: isMovie),
+                data: (data) => ContentListWidget(data: data, isMovie: isMovie),
                 error: (error, stackTrace) =>
                     Center(child: Text("Lol no data")),
                 loading: () => Center(child: CircularProgressIndicator()),

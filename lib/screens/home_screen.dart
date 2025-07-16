@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_show_tracker/widgets/auto_scroll_widget.dart';
-import 'package:movie_show_tracker/widgets/movie_row_widget.dart';
+import 'package:movie_show_tracker/widgets/content_row_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -31,12 +31,12 @@ class HomeScreen extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      MovieRowWidget(
+                      ContentRowWidget(
                         title: "New",
                         movieType: "now_playing",
                         isMovie: true,
                       ),
-                      MovieRowWidget(
+                      ContentRowWidget(
                         title: "Top Rated",
                         movieType: "top_rated",
                         isMovie: true,
@@ -62,12 +62,12 @@ class HomeScreen extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      MovieRowWidget(
+                      ContentRowWidget(
                         title: "Popular",
                         movieType: "popular",
                         isMovie: false,
                       ),
-                      MovieRowWidget(
+                      ContentRowWidget(
                         title: "Top Rated",
                         movieType: "top_rated",
                         isMovie: false,

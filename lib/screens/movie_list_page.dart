@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_show_tracker/providers/movie_genre_list_provider.dart';
-import 'package:movie_show_tracker/widgets/movie_list_widget.dart';
+import 'package:movie_show_tracker/providers/genre_list_content.dart';
+import 'package:movie_show_tracker/widgets/content_list_widget.dart';
 
 class MovieListPage extends ConsumerWidget {
   final String genre;
@@ -17,7 +17,7 @@ class MovieListPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final movieList = ref.watch(
-      movieGenreListProvider((id: genreId, isMovie: isMovie)),
+      contentGenreListProvider((id: genreId, isMovie: isMovie)),
     );
     return Scaffold(
       appBar: AppBar(title: Text(genre)),
@@ -25,7 +25,7 @@ class MovieListPage extends ConsumerWidget {
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
         child: SingleChildScrollView(
           child: movieList.when(
-            data: (data) => MovieListWidget(data: data, isMovie: isMovie),
+            data: (data) => ContentListWidget(data: data, isMovie: isMovie),
             error: (error, stackTrace) => Center(child: Text("No movie list")),
             loading: () => Center(child: CircularProgressIndicator()),
           ),

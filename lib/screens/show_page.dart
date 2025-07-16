@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_show_tracker/providers/saved_movie_list_provider.dart';
 import 'package:movie_show_tracker/providers/show_provider.dart';
 
 class ShowPage extends ConsumerWidget {
@@ -10,9 +11,19 @@ class ShowPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final movieDetail = ref.watch(showProvider(id));
+    // final saveMovie = ref.watch(savedMovieProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text("Show Detail")),
+      appBar: AppBar(
+        title: Text("Show Detail"),
+        actions: [
+          IconButton(
+            onPressed: () => ref.read(savedMovieProvider.notifier).add(id),
+            icon: Icon(Icons.bookmark_add_outlined),
+          ),
+          SizedBox(width: 50),
+        ],
+      ),
       body: movieDetail.when(
         data: (data) {
           return SingleChildScrollView(
