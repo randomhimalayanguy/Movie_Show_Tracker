@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_show_tracker/models/media.dart';
+import 'package:movie_show_tracker/providers/saved_movie_list_provider.dart';
+import 'package:movie_show_tracker/providers/saved_show_list.dart';
 import 'package:movie_show_tracker/screens/movie_page.dart';
 import 'package:movie_show_tracker/screens/show_page.dart';
 
-class ContentCardWidget extends StatelessWidget {
+class ContentCardWidget extends ConsumerWidget {
   final Media data;
   final bool isMovie;
   const ContentCardWidget({
@@ -13,7 +16,12 @@ class ContentCardWidget extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final watchedMovies = ref.watch(watchedMovieProvider).toSet();
+    final plannedMovies = ref.watch(plannedMovieProvider).toSet();
+
+    final watchedShows = ref.watch(watchedShowProvider).toSet();
+    final plannedShows = ref.watch(plannedShowProvider).toSet();
     return InkWell(
       child: Card(
         elevation: 0,
@@ -25,7 +33,18 @@ class ContentCardWidget extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Image.network(data.poster, fit: BoxFit.cover),
+              child: Stack(
+                children: [
+                  Image.network(data.poster, fit: BoxFit.cover),
+                  if (isMovie) ...[
+                    if (watchedMovies.contains(data.id)) WatchedIcon(),
+                    if (plannedMovies.contains(data.id)) PlanToWatchWidget(),
+                  ] else ...[
+                    if (watchedShows.contains(data.id)) WatchedIcon(),
+                    if (plannedShows.contains(data.id)) PlanToWatchWidget(),
+                  ],
+                ],
+              ),
             ),
             SizedBox(height: 10),
             Text(
@@ -44,6 +63,30 @@ class ContentCardWidget extends StatelessWidget {
               (isMovie) ? MoviePage(id: data.id) : ShowPage(id: data.id),
         ),
       ),
+    );
+  }
+}
+
+class PlanToWatchWidget extends StatelessWidget {
+  const PlanToWatchWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.topRight,
+      child: Icon(Icons.watch_later, color: Colors.grey, size: 34),
+    );
+  }
+}
+
+class WatchedIcon extends StatelessWidget {
+  const WatchedIcon({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.topRight,
+      child: Icon(Icons.check_circle, size: 34, color: Colors.green),
     );
   }
 }
