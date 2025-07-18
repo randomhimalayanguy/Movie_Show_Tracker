@@ -3,11 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_show_tracker/providers/genre_list_content.dart';
 import 'package:movie_show_tracker/widgets/content_list_widget.dart';
 
-class MovieListPage extends ConsumerWidget {
+class ContentListPage extends ConsumerWidget {
   final String genre;
   final int genreId;
   final bool isMovie;
-  const MovieListPage({
+  const ContentListPage({
     super.key,
     required this.genreId,
     required this.genre,

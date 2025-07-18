@@ -5,7 +5,6 @@ import 'package:movie_show_tracker/providers/saved_movie_list_provider.dart';
 
 class MoviePage extends ConsumerWidget {
   final String id;
-
   const MoviePage({super.key, required this.id});
 
   @override
@@ -13,16 +12,7 @@ class MoviePage extends ConsumerWidget {
     final movieDetail = ref.watch(movieProvider(id));
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Movie Detail"),
-        actions: [
-          IconButton(
-            onPressed: () => ref.read(savedMovieProvider.notifier).add(id),
-            icon: Icon(Icons.bookmark_add_outlined),
-          ),
-          SizedBox(width: 60),
-        ],
-      ),
+      appBar: AppBar(title: Text("Movie Detail")),
       body: movieDetail.when(
         data: (data) {
           return SingleChildScrollView(
@@ -37,6 +27,7 @@ class MoviePage extends ConsumerWidget {
                       child: Image.network(data.poster, fit: BoxFit.fill),
                     ),
                   ),
+                  WatchStatus(id: data.id),
                   const SizedBox(height: 20),
                   Text(
                     data.title,
@@ -46,38 +37,6 @@ class MoviePage extends ConsumerWidget {
                     ),
                   ),
                   const SizedBox(height: 15),
-                  // Row(
-                  //   children: [
-                  //     Container(
-                  //       decoration: BoxDecoration(
-                  //         borderRadius: BorderRadius.circular(10),
-                  //         color: Colors.orange,
-                  //       ),
-                  //       child: Padding(
-                  //         padding: const EdgeInsets.symmetric(
-                  //           vertical: 2,
-                  //           horizontal: 6,
-                  //         ),
-                  //         // child: Text("IMDb - ${data.imdbRating}"),
-                  //       ),
-                  //     ),
-                  //     const SizedBox(width: 15),
-                  //     Container(
-                  //       decoration: BoxDecoration(
-                  //         borderRadius: BorderRadius.circular(10),
-                  //         color: Colors.orange,
-                  //       ),
-                  //       child: Padding(
-                  //         padding: const EdgeInsets.symmetric(
-                  //           vertical: 2,
-                  //           horizontal: 6,
-                  //         ),
-                  //         // child: Text("Metascore - ${data.metascore}"),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-                  // const SizedBox(height: 20),
                   Text(data.overview, style: const TextStyle(fontSize: 16)),
                 ],
               ),
@@ -86,6 +45,72 @@ class MoviePage extends ConsumerWidget {
         },
         error: (error, stackTrace) => Center(child: Text("Error: $error")),
         loading: () => const Center(child: CircularProgressIndicator()),
+      ),
+    );
+  }
+}
+
+class WatchStatus extends ConsumerWidget {
+  final String id;
+  const WatchStatus({super.key, required this.id});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    bool isWatched = ref.watch(watchedMovieProvider).contains(id);
+    bool isPlanned = ref.watch(plannedMovieProvider).contains(id);
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        child: Row(
+          children: [
+            if (!isPlanned)
+              Expanded(
+                child: Container(
+                  color: Colors.orange,
+                  child: TextButton(
+                    onPressed: () {
+                      if (!isWatched) {
+                        ref
+                            .read(watchedMovieProvider.notifier)
+                            .addWatchedMovie(id);
+                        ref
+                            .read(plannedMovieProvider.notifier)
+                            .removePlannedMovie(id);
+                      } else {
+                        ref
+                            .read(watchedMovieProvider.notifier)
+                            .removeWatchedMovie(id);
+                      }
+                    },
+                    child: Text("Watched"),
+                  ),
+                ),
+              ),
+            if (!isWatched)
+              Expanded(
+                child: Container(
+                  color: Colors.green,
+                  child: TextButton(
+                    onPressed: () {
+                      if (!isPlanned) {
+                        ref
+                            .read(plannedMovieProvider.notifier)
+                            .addPlannedMovie(id);
+                        ref
+                            .read(watchedMovieProvider.notifier)
+                            .removeWatchedMovie(id);
+                      } else {
+                        ref
+                            .read(plannedMovieProvider.notifier)
+                            .removePlannedMovie(id);
+                      }
+                    },
+                    child: Text("Plan to watch"),
+                  ),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

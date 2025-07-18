@@ -1,17 +1,35 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SavedMovie extends StateNotifier<List<String>> {
-  SavedMovie() : super([]);
+class WatchedMovieNotifier extends StateNotifier<List<String>> {
+  WatchedMovieNotifier() : super([]);
 
-  void add(String id) {
+  void addWatchedMovie(String id) {
     state = [...state, id];
   }
 
-  void remove(String id) {
-    state = state.where((media) => media != id).toList();
+  void removeWatchedMovie(String id) {
+    state = state.where((element) => element != id).toList();
   }
 }
 
-final savedMovieProvider = StateNotifierProvider<SavedMovie, List<String>>(
-  (ref) => SavedMovie(),
-);
+class PlannedMovieNotifer extends StateNotifier<List<String>> {
+  PlannedMovieNotifer() : super([]);
+
+  void addPlannedMovie(String id) {
+    state = [...state, id];
+  }
+
+  void removePlannedMovie(String id) {
+    state = state.where((element) => element != id).toList();
+  }
+}
+
+final watchedMovieProvider =
+    StateNotifierProvider<WatchedMovieNotifier, List<String>>(
+      (ref) => WatchedMovieNotifier(),
+    );
+
+final plannedMovieProvider =
+    StateNotifierProvider<PlannedMovieNotifer, List<String>>(
+      (ref) => PlannedMovieNotifer(),
+    );

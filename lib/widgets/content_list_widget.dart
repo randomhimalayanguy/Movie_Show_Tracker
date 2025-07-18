@@ -21,18 +21,8 @@ class ContentListWidget extends StatelessWidget {
         crossAxisCount: 2,
         childAspectRatio: 0.7,
       ),
-      itemBuilder: (context, index) => ContentCardWidget(
-        isMovie: isMovie,
-        data: data[index],
-        // MovieDetail(
-        //   id: data[index].id,
-        //   backImg: data[index].backImg,
-        //   poster: data[index].poster,
-        //   title: data[index].title,
-        //   overview: data[index].overview,
-        //   runtime: data[index].runtime,
-        // ),
-      ),
+      itemBuilder: (context, index) =>
+          ContentCardWidget(isMovie: isMovie, data: data[index]),
     );
   }
 }

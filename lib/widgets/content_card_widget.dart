@@ -25,11 +25,7 @@ class ContentCardWidget extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Image.network(
-                data.poster,
-                fit: BoxFit.cover,
-                // frameBuilder: ,
-              ),
+              child: Image.network(data.poster, fit: BoxFit.cover),
             ),
             SizedBox(height: 10),
             Text(

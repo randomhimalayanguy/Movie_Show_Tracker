@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_show_tracker/providers/genre_provider.dart';
-import 'package:movie_show_tracker/screens/movie_list_page.dart';
+import 'package:movie_show_tracker/screens/content_list_page.dart';
 
 class GenreListWidget extends ConsumerWidget {
   final bool isMovie;
@@ -21,7 +21,7 @@ class GenreListWidget extends ConsumerWidget {
       itemBuilder: (context, index) => InkWell(
         onTap: () => Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => MovieListPage(
+            builder: (context) => ContentListPage(
               genreId: genres[index].id,
               genre: genres[index].name,
               isMovie: isMovie,

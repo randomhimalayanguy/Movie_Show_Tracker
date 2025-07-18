@@ -30,7 +30,7 @@ class ShowDetail extends Media {
       status: json["status"] ?? "Not airing",
       score: json["vote_average"] ?? 0.0,
       backImg: "",
-      id: json["id"] as String,
+      id: json["id"].toString(),
     );
   }
 }

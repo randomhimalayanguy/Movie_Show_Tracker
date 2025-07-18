@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_show_tracker/providers/content_list_provider.dart';
-import 'package:movie_show_tracker/screens/movie_type_list_page.dart';
+import 'package:movie_show_tracker/screens/content_type_list_page.dart';
 import 'package:movie_show_tracker/widgets/content_tile_grid_widget.dart';
 
 class ContentRowWidget extends ConsumerStatefulWidget {
@@ -39,7 +39,7 @@ class _MovieRowWidgetState extends ConsumerState<ContentRowWidget> {
               TextButton(
                 onPressed: () => Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => MovieTypeListScreen(
+                    builder: (context) => ContentTypeListScreen(
                       movieType: widget.movieType,
                       name: widget.title,
                       isMovie: widget.isMovie,

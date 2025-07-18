@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_show_tracker/providers/helper_provider.dart';
 import 'package:movie_show_tracker/providers/movie_provider.dart';
 import 'package:movie_show_tracker/providers/saved_movie_list_provider.dart';
+import 'package:movie_show_tracker/providers/saved_show_list.dart';
+import 'package:movie_show_tracker/providers/show_provider.dart';
 import 'package:movie_show_tracker/widgets/content_card_widget.dart';
 
 class WatchListPage extends ConsumerStatefulWidget {
@@ -17,7 +20,13 @@ class _WatchListPageState extends ConsumerState<WatchListPage> {
 
   @override
   Widget build(BuildContext context) {
-    final movieLi = ref.watch(savedMovieProvider);
+    final watchedMovieLi = ref.watch(watchedMovieProvider);
+    final plannedMovieLi = ref.watch(plannedMovieProvider);
+
+    final watchedShowLi = ref.watch(watchedShowProvider);
+    final plannedShowLi = ref.watch(plannedShowProvider);
+
+    final curType = ref.watch(curTypeProvider);
     return Column(
       children: [
         SizedBox(
@@ -50,36 +59,49 @@ class _WatchListPageState extends ConsumerState<WatchListPage> {
           child: PageView(
             onPageChanged: (value) => setState(() => curPage = value),
             children: [
-              GridView.builder(
-                itemCount: movieLi.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: 0.75,
-                  crossAxisCount: 2,
-                ),
-                itemBuilder: (context, index) {
-                  final movie = ref.watch(movieProvider(movieLi[index]));
-
-                  return movie.when(
-                    data: (data) =>
-                        ContentCardWidget(data: data, isMovie: true),
-                    error: (error, stackTrace) => Center(child: Text("$error")),
-                    loading: () => Center(child: CircularProgressIndicator()),
-                  );
-                },
-
-                // Card(child: Container(color: Colors.amber)),
+              GridList(
+                movieLi: (curType) ? watchedMovieLi : watchedShowLi,
+                ref: ref,
               ),
-              GridView.builder(
-                itemCount: 10,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                ),
-                itemBuilder: (context, index) => Card(),
+              GridList(
+                movieLi: (curType) ? plannedMovieLi : plannedShowLi,
+                ref: ref,
               ),
             ],
           ),
         ),
       ],
+    );
+  }
+}
+
+class GridList extends ConsumerWidget {
+  const GridList({super.key, required this.movieLi, required this.ref});
+
+  final List<String> movieLi;
+  final WidgetRef ref;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final curSelected = ref.watch(curTypeProvider);
+    return GridView.builder(
+      itemCount: movieLi.length,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        childAspectRatio: 0.75,
+        crossAxisCount: 2,
+      ),
+      itemBuilder: (context, index) {
+        final movie = (curSelected)
+            ? ref.watch(movieProvider(movieLi[index]))
+            : ref.watch(showProvider(movieLi[index]));
+        return movie.when(
+          data: (data) => ContentCardWidget(data: data, isMovie: curSelected),
+          error: (error, stackTrace) => Center(child: Text("$error")),
+          loading: () => Center(child: CircularProgressIndicator()),
+        );
+      },
+
+      // Card(child: Container(color: Colors.amber)),
     );
   }
 }

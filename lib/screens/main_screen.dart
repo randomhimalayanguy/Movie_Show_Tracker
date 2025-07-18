@@ -32,8 +32,8 @@ class _MainScreenState extends State<MainScreen> {
 
         actions: (curScreen == 1 || curScreen == 2)
             ? [
-                MovieShowWidget(isMovie: true, type: "Movies"),
-                MovieShowWidget(isMovie: false, type: "Shows"),
+                MovieShowSelectorWidget(isMovie: true, type: "Movies"),
+                MovieShowSelectorWidget(isMovie: false, type: "Shows"),
                 SizedBox(width: 20),
               ]
             : [],

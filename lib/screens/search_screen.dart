@@ -18,7 +18,6 @@ class _SearchPageState extends ConsumerState<SearchPage> {
   final TextEditingController _controller = TextEditingController();
   Timer? debounce;
   String searchQuery = "";
-  bool isMovie = true;
 
   void search(String value) {
     if (debounce?.isActive ?? false) debounce?.cancel();
@@ -45,8 +44,10 @@ class _SearchPageState extends ConsumerState<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    final searchLi = ref.watch(contentSearchProvider(searchQuery));
     final isMovie = ref.watch(curTypeProvider);
+    final searchLi = ref.watch(
+      contentSearchProvider((search: searchQuery, isMovie: isMovie)),
+    );
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 18),
       child: SingleChildScrollView(
