@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:movie_show_tracker/models/media.dart';
 import 'dart:convert';
 
-import '../constant_values.dart';
+import '../util/constant_values.dart';
 
 /// Provides list of content of specific genre
 final contentGenreListProvider =

@@ -3,9 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_show_tracker/providers/helper_provider.dart';
 import 'package:movie_show_tracker/screens/main_screen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:flutter_displaymode/flutter_displaymode.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await FlutterDisplayMode.setHighRefreshRate();
 
   await Hive.initFlutter();
 

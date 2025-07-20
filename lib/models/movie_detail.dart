@@ -1,15 +1,21 @@
 import 'package:movie_show_tracker/models/media.dart';
 
+/* 
+Genres (list)
+*/
+
 class MovieDetail extends Media {
   final int runtime;
+  final String releaseDate;
 
   MovieDetail({
     required super.title,
     required super.overview,
     required super.poster,
-    required this.runtime,
     required super.backImg,
     required super.id,
+    required this.runtime,
+    required this.releaseDate,
   });
 
   factory MovieDetail.fromJson(Map<String, dynamic> json) {
@@ -30,6 +36,7 @@ class MovieDetail extends Media {
       runtime: json["runtime"] ?? 0,
       id: json["id"].toString(),
       backImg: fullBackgUrl,
+      releaseDate: json["release_date"] ?? "Not Release Date",
     );
   }
 }

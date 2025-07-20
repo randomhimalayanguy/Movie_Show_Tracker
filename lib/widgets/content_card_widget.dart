@@ -72,7 +72,7 @@ class PlanToWatchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
+    return const Align(
       alignment: Alignment.topRight,
       child: Icon(Icons.watch_later, color: Colors.grey, size: 34),
     );
@@ -84,7 +84,7 @@ class WatchedIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
+    return const Align(
       alignment: Alignment.topRight,
       child: Icon(Icons.check_circle, size: 34, color: Colors.green),
     );

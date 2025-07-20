@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
-import 'package:movie_show_tracker/constant_values.dart';
+import 'package:movie_show_tracker/util/constant_values.dart';
 import 'dart:convert';
 
 import 'package:movie_show_tracker/models/show_detail.dart';
