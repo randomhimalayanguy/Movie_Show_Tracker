@@ -16,14 +16,9 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int curScreen = 0;
 
-  final List<Widget> screens = [
-    HomeScreen(),
-    SearchPage(),
-    WatchListPage(),
-    SettingsPage(),
-  ];
+  final List<Widget> screens = [HomeScreen(), SearchPage(), WatchListPage()];
 
-  final List<String> titles = ["Explore", "Search", "Watch List", "Settings"];
+  final List<String> titles = ["Explore", "Search", "Watch List"];
 
   @override
   Widget build(BuildContext context) {
@@ -55,10 +50,6 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.shop_two_sharp),
             label: "Library",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: "Settings",
           ),
         ],
 

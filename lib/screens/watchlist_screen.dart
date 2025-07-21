@@ -5,6 +5,7 @@ import 'package:movie_show_tracker/providers/movie_provider.dart';
 import 'package:movie_show_tracker/providers/saved_movie_list_provider.dart';
 import 'package:movie_show_tracker/providers/saved_show_list.dart';
 import 'package:movie_show_tracker/providers/show_provider.dart';
+import 'package:movie_show_tracker/util/colors.dart';
 import 'package:movie_show_tracker/widgets/content_card_widget.dart';
 
 class WatchListPage extends ConsumerStatefulWidget {
@@ -33,64 +34,88 @@ class _WatchListPageState extends ConsumerState<WatchListPage> {
     final plannedShowLi = ref.watch(plannedShowProvider);
 
     final curType = ref.watch(curTypeProvider);
-    return Column(
-      children: [
-        SizedBox(
-          height: 40,
-          child: Row(
-            children: [
-              Expanded(
-                child: Container(
-                  color: Colors.green,
-                  child: TextButton(
-                    onPressed: () {
-                      pageController.animateToPage(
-                        0,
-                        duration: Duration(milliseconds: 200),
-                        curve: Curves.easeIn,
-                      );
-                    },
-                    child: Text("Watched"),
-                  ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 14.0),
+      child: Column(
+        children: [
+          SizedBox(
+            height: 40,
+            child: Row(
+              children: [
+                StatusSelectionWidget(
+                  isCur: curPage == 0,
+                  pageController: pageController,
+                  text: "Watched",
+                  targetPage: 0,
                 ),
-              ),
-              SizedBox(width: 10),
-              Expanded(
-                child: Container(
-                  color: Colors.green,
-                  child: TextButton(
-                    onPressed: () {
-                      pageController.animateToPage(
-                        1,
-                        duration: Duration(milliseconds: 200),
-                        curve: Curves.easeIn,
-                      );
-                    },
-                    child: Text("Plan to watch"),
-                  ),
+                SizedBox(width: 10),
+                StatusSelectionWidget(
+                  isCur: curPage == 1,
+                  pageController: pageController,
+                  text: "Planning",
+                  targetPage: 1,
                 ),
-              ),
-            ],
+              ],
+            ),
+          ),
+          SizedBox(height: 16),
+          Expanded(
+            child: PageView(
+              controller: pageController,
+              onPageChanged: (value) => setState(() => curPage = value),
+              children: [
+                GridList(
+                  movieLi: (curType) ? watchedMovieLi : watchedShowLi,
+                  ref: ref,
+                ),
+                GridList(
+                  movieLi: (curType) ? plannedMovieLi : plannedShowLi,
+                  ref: ref,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class StatusSelectionWidget extends StatelessWidget {
+  const StatusSelectionWidget({
+    super.key,
+    required this.pageController,
+    required this.text,
+    required this.isCur,
+    required this.targetPage,
+  });
+
+  final bool isCur;
+  final PageController pageController;
+  final String text;
+  final int targetPage;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        color: (isCur)
+            ? AppColor.primaryColor
+            : AppColor.secondaryBackgroundColor,
+        child: TextButton(
+          onPressed: () {
+            pageController.animateToPage(
+              targetPage,
+              duration: Duration(milliseconds: 200),
+              curve: Curves.easeIn,
+            );
+          },
+          child: Text(
+            text,
+            style: TextStyle(color: isCur ? Colors.white70 : Colors.white12),
           ),
         ),
-        SizedBox(height: 16),
-        Expanded(
-          child: PageView(
-            controller: pageController,
-            onPageChanged: (value) => setState(() => curPage = value),
-            children: [
-              GridList(
-                movieLi: (curType) ? watchedMovieLi : watchedShowLi,
-                ref: ref,
-              ),
-              GridList(
-                movieLi: (curType) ? plannedMovieLi : plannedShowLi,
-                ref: ref,
-              ),
-            ],
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
@@ -107,7 +132,7 @@ class GridList extends ConsumerWidget {
     return GridView.builder(
       itemCount: movieLi.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        childAspectRatio: 0.78,
+        childAspectRatio: 0.68,
         crossAxisCount: 2,
       ),
       itemBuilder: (context, index) {

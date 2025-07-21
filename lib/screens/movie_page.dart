@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_show_tracker/providers/movie_provider.dart';
 import 'package:movie_show_tracker/providers/saved_movie_list_provider.dart';
+import 'package:movie_show_tracker/util/colors.dart';
 import 'package:movie_show_tracker/util/helper.dart';
 
 class MoviePage extends ConsumerWidget {
@@ -107,7 +108,7 @@ class WatchStatus extends ConsumerWidget {
             if (!isPlanned)
               Expanded(
                 child: Container(
-                  color: Color(0xffFFA000),
+                  color: Color(0xffBD3039),
                   child: TextButton(
                     onPressed: () {
                       if (!isWatched) {
@@ -133,7 +134,7 @@ class WatchStatus extends ConsumerWidget {
             if (!isWatched)
               Expanded(
                 child: Container(
-                  color: Color(0xff9C27B0),
+                  color: AppColor.primaryColor,
                   child: TextButton(
                     onPressed: () {
                       if (!isPlanned) {

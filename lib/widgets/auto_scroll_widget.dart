@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_show_tracker/providers/content_list_provider.dart';
 import 'dart:async';
 
+import 'package:movie_show_tracker/screens/movie_page.dart';
+
 class AutoScrollCarousel extends ConsumerStatefulWidget {
   const AutoScrollCarousel({super.key});
 
@@ -55,7 +57,6 @@ class _AutoScrollCarouselState extends ConsumerState<AutoScrollCarousel> {
       height: 195,
       child: movieLi.when(
         data: (data) {
-          // Stop any existing timer and start a new one if data is available
           _timer?.cancel();
           if (data.isNotEmpty) {
             _startAutoScroll(data.length);
@@ -69,48 +70,54 @@ class _AutoScrollCarouselState extends ConsumerState<AutoScrollCarousel> {
               _currentPage = index;
             },
             itemBuilder: (context, index) {
-              return Stack(
-                children: [
-                  Center(
-                    child: SizedBox(
-                      width: MediaQuery.sizeOf(context).width - 30,
-                      child: Stack(
-                        children: [
-                          // Ensure Image.network handles null or empty URLs
-                          data[index].backImg.isNotEmpty
-                              ? Image.network(
-                                  data[index].backImg,
-                                  fit: BoxFit.cover,
-                                )
-                              : Container(
-                                  color: Colors.grey,
-                                ), // Placeholder for missing image
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 16),
-                            child: Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Text(
-                                data[index].title,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  shadows: [
-                                    Shadow(
-                                      color: Colors.black26,
-                                      offset: Offset.fromDirection(2),
-                                    ),
-                                  ],
+              return InkWell(
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => MoviePage(id: data[index].id),
+                  ),
+                ),
+                child: Stack(
+                  children: [
+                    Center(
+                      child: SizedBox(
+                        width: MediaQuery.sizeOf(context).width - 30,
+                        child: Stack(
+                          children: [
+                            data[index].backImg.isNotEmpty
+                                ? Image.network(
+                                    data[index].backImg,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Container(
+                                    color: Colors.grey,
+                                  ), // Placeholder for missing image
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 16),
+                              child: Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Text(
+                                  data[index].title,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    shadows: [
+                                      Shadow(
+                                        color: Colors.black26,
+                                        offset: Offset.fromDirection(2),
+                                      ),
+                                    ],
+                                  ),
+                                  textAlign: TextAlign.center,
                                 ),
-                                textAlign: TextAlign.center,
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               );
             },
           );

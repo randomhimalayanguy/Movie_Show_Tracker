@@ -18,9 +18,14 @@ class MovieShowSelectorWidget extends ConsumerWidget {
     final isSelected = (isMovie == cur);
     return Container(
       height: 40,
-      color: isSelected
-          ? AppColor.primaryColor
-          : AppColor.secondaryBackgroundColor,
+      decoration: BoxDecoration(
+        borderRadius: (isMovie)
+            ? BorderRadius.horizontal(left: Radius.circular(10))
+            : BorderRadius.horizontal(right: Radius.circular(10)),
+        color: isSelected
+            ? AppColor.primaryColor
+            : AppColor.secondaryBackgroundColor,
+      ),
       child: TextButton(
         onPressed: () => ref.read(curTypeProvider.notifier).state = isMovie,
         child: Text(

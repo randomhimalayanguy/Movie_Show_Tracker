@@ -24,10 +24,8 @@ class MainApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final curTheme = ref.watch(themeProvider);
     return MaterialApp(
-      theme: curTheme,
-
+      theme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
       home: MainScreen(),
     );
