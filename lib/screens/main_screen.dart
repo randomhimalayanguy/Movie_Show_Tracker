@@ -3,6 +3,7 @@ import 'package:movie_show_tracker/screens/home_screen.dart';
 import 'package:movie_show_tracker/screens/search_screen.dart';
 import 'package:movie_show_tracker/screens/settings_screen.dart';
 import 'package:movie_show_tracker/screens/watchlist_screen.dart';
+import 'package:movie_show_tracker/util/colors.dart';
 import 'package:movie_show_tracker/widgets/movie_show_selector_widget.dart';
 
 class MainScreen extends StatefulWidget {
@@ -27,7 +28,11 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // backgroundColor: Colors.green,
+      backgroundColor: AppColor.backgroundColor,
       appBar: AppBar(
+        backgroundColor: AppColor.backgroundColor,
+        surfaceTintColor: AppColor.backgroundColor,
         title: Text(titles[curScreen]),
 
         actions: (curScreen == 1 || curScreen == 2)
@@ -42,8 +47,7 @@ class _MainScreenState extends State<MainScreen> {
         enableFeedback: true,
         currentIndex: curScreen,
         unselectedItemColor: Colors.grey,
-        backgroundColor: Colors.orange,
-        fixedColor: Colors.green,
+        fixedColor: AppColor.primaryColor,
         elevation: 1,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.explore), label: "Explore"),

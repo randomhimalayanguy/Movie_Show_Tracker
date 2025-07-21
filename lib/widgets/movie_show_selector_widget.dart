@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_show_tracker/providers/helper_provider.dart';
+import 'package:movie_show_tracker/util/colors.dart';
 
 class MovieShowSelectorWidget extends ConsumerWidget {
   final bool isMovie;
@@ -17,12 +18,14 @@ class MovieShowSelectorWidget extends ConsumerWidget {
     final isSelected = (isMovie == cur);
     return Container(
       height: 40,
-      color: isSelected ? Colors.blue : Colors.white,
+      color: isSelected
+          ? AppColor.primaryColor
+          : AppColor.secondaryBackgroundColor,
       child: TextButton(
         onPressed: () => ref.read(curTypeProvider.notifier).state = isMovie,
         child: Text(
           type,
-          style: TextStyle(color: isSelected ? Colors.white : Colors.black),
+          style: TextStyle(color: isSelected ? Colors.white70 : Colors.white30),
         ),
       ),
     );

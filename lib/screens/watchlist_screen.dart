@@ -19,6 +19,12 @@ class _WatchListPageState extends ConsumerState<WatchListPage> {
   int curPage = 0;
 
   @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final watchedMovieLi = ref.watch(watchedMovieProvider);
     final plannedMovieLi = ref.watch(plannedMovieProvider);
@@ -37,7 +43,13 @@ class _WatchListPageState extends ConsumerState<WatchListPage> {
                 child: Container(
                   color: Colors.green,
                   child: TextButton(
-                    onPressed: () => print("s"),
+                    onPressed: () {
+                      pageController.animateToPage(
+                        0,
+                        duration: Duration(milliseconds: 200),
+                        curve: Curves.easeIn,
+                      );
+                    },
                     child: Text("Watched"),
                   ),
                 ),
@@ -47,7 +59,13 @@ class _WatchListPageState extends ConsumerState<WatchListPage> {
                 child: Container(
                   color: Colors.green,
                   child: TextButton(
-                    onPressed: () => print("s"),
+                    onPressed: () {
+                      pageController.animateToPage(
+                        1,
+                        duration: Duration(milliseconds: 200),
+                        curve: Curves.easeIn,
+                      );
+                    },
                     child: Text("Plan to watch"),
                   ),
                 ),
@@ -55,8 +73,10 @@ class _WatchListPageState extends ConsumerState<WatchListPage> {
             ],
           ),
         ),
+        SizedBox(height: 16),
         Expanded(
           child: PageView(
+            controller: pageController,
             onPageChanged: (value) => setState(() => curPage = value),
             children: [
               GridList(
@@ -87,7 +107,7 @@ class GridList extends ConsumerWidget {
     return GridView.builder(
       itemCount: movieLi.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        childAspectRatio: 0.75,
+        childAspectRatio: 0.78,
         crossAxisCount: 2,
       ),
       itemBuilder: (context, index) {
@@ -95,13 +115,15 @@ class GridList extends ConsumerWidget {
             ? ref.watch(movieProvider(movieLi[index]))
             : ref.watch(showProvider(movieLi[index]));
         return movie.when(
-          data: (data) => ContentCardWidget(data: data, isMovie: curSelected),
+          data: (data) => ContentCardWidget(
+            data: data,
+            isMovie: curSelected,
+            isParent: true,
+          ),
           error: (error, stackTrace) => Center(child: Text("$error")),
           loading: () => Center(child: CircularProgressIndicator()),
         );
       },
-
-      // Card(child: Container(color: Colors.amber)),
     );
   }
 }

@@ -107,7 +107,7 @@ class WatchStatus extends ConsumerWidget {
             if (!isPlanned)
               Expanded(
                 child: Container(
-                  color: Colors.orange,
+                  color: Color(0xffFFA000),
                   child: TextButton(
                     onPressed: () {
                       if (!isWatched) {
@@ -133,7 +133,7 @@ class WatchStatus extends ConsumerWidget {
             if (!isWatched)
               Expanded(
                 child: Container(
-                  color: Colors.green,
+                  color: Color(0xff9C27B0),
                   child: TextButton(
                     onPressed: () {
                       if (!isPlanned) {

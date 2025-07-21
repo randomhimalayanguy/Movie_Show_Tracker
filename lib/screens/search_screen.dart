@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_show_tracker/providers/helper_provider.dart';
 import 'package:movie_show_tracker/providers/content_search_provider.dart';
+import 'package:movie_show_tracker/util/colors.dart';
 import 'dart:async';
 import 'package:movie_show_tracker/widgets/genre_list_widget.dart';
 import 'package:movie_show_tracker/widgets/content_list_widget.dart';
 import 'package:movie_show_tracker/widgets/content_row_widget.dart';
+import 'package:movie_show_tracker/widgets/widgets_container.dart';
 
 class SearchPage extends ConsumerStatefulWidget {
   const SearchPage({super.key});
@@ -49,13 +51,14 @@ class _SearchPageState extends ConsumerState<SearchPage> {
       contentSearchProvider((search: searchQuery, isMovie: isMovie)),
     );
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 18),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: SingleChildScrollView(
         child: Column(
           children: [
+            SizedBox(height: 16),
             Container(
               decoration: BoxDecoration(
-                color: Colors.blueGrey,
+                color: AppColor.secondaryBackgroundColor,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Row(
@@ -67,7 +70,13 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                         onChanged: (value) => search(value),
                         controller: _controller,
                         autofocus: false,
-                        decoration: InputDecoration(border: InputBorder.none),
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hint: Text(
+                            "Search ${isMovie ? "movies" : "shows"}",
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -79,18 +88,27 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                 ],
               ),
             ),
+            SizedBox(height: 20),
             if (searchQuery.isEmpty) ...[
               ContentRowWidget(
                 title: "Popular",
                 movieType: "popular",
                 isMovie: isMovie,
+                isParent: true,
               ),
               SizedBox(height: 10),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text("Genres", style: TextStyle(fontSize: 22)),
+              WidgetsContainer(
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text("Genres", style: TextStyle(fontSize: 22)),
+                    ),
+                    GenreListWidget(isMovie: isMovie),
+                  ],
+                ),
               ),
-              GenreListWidget(isMovie: isMovie),
+
               //this is a comment to sett
             ] else
               searchLi.when(
@@ -99,6 +117,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                     Center(child: Text("Lol no data")),
                 loading: () => Center(child: CircularProgressIndicator()),
               ),
+            SizedBox(height: 16),
           ],
         ),
       ),

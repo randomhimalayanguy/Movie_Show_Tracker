@@ -5,14 +5,17 @@ import 'package:movie_show_tracker/providers/saved_movie_list_provider.dart';
 import 'package:movie_show_tracker/providers/saved_show_list.dart';
 import 'package:movie_show_tracker/screens/movie_page.dart';
 import 'package:movie_show_tracker/screens/show_page.dart';
+import 'package:movie_show_tracker/util/colors.dart';
 
 class ContentCardWidget extends ConsumerWidget {
   final Media data;
   final bool isMovie;
+  final bool isParent;
   const ContentCardWidget({
     super.key,
     required this.data,
     required this.isMovie,
+    this.isParent = false,
   });
 
   @override
@@ -24,6 +27,9 @@ class ContentCardWidget extends ConsumerWidget {
     final plannedShows = ref.watch(plannedShowProvider).toSet();
     return InkWell(
       child: Card(
+        color: isParent
+            ? AppColor.secondaryBackgroundColor
+            : AppColor.backgroundColor,
         elevation: 0,
         child: Column(
           children: [
@@ -47,12 +53,15 @@ class ContentCardWidget extends ConsumerWidget {
               ),
             ),
             SizedBox(height: 10),
-            Text(
-              data.title,
-              softWrap: true,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
+            Align(
+              alignment: Alignment.center,
+              child: Text(
+                data.title,
+                softWrap: true,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+              ),
             ),
           ],
         ),
