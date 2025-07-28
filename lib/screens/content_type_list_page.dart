@@ -25,7 +25,7 @@ class ContentTypeListScreen extends ConsumerWidget {
         child: list.when(
           data: (data) => ContentListWidget(data: data, isMovie: isMovie),
           error: (error, stackTrace) => Center(child: Text("$error")),
-          loading: () => Center(child: CircularProgressIndicator()),
+          loading: () => const Center(child: CircularProgressIndicator()),
         ),
       ),
     );

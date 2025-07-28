@@ -40,7 +40,10 @@ class _MovieRowWidgetState extends ConsumerState<ContentRowWidget> {
               children: [
                 Text(
                   widget.title,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 TextButton(
                   onPressed: () => Navigator.of(context).push(
@@ -52,7 +55,7 @@ class _MovieRowWidgetState extends ConsumerState<ContentRowWidget> {
                       ),
                     ),
                   ),
-                  child: Text(
+                  child: const Text(
                     "See All",
                     style: TextStyle(
                       color: AppColor.primaryColor,
@@ -63,7 +66,7 @@ class _MovieRowWidgetState extends ConsumerState<ContentRowWidget> {
               ],
             ),
           ),
-          ContentTileGrid(movieLi: movieLi, isMovie: widget.isMovie),
+          ContentTileGrid(contentList: movieLi, isMovie: widget.isMovie),
         ],
       ),
     );

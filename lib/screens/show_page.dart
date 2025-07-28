@@ -1,195 +1,9 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:movie_show_tracker/providers/saved_show_list.dart';
-// import 'package:movie_show_tracker/providers/show_provider.dart';
-// import 'package:movie_show_tracker/util/colors.dart';
-
-// class ShowPage extends ConsumerWidget {
-//   final String id;
-
-//   const ShowPage({super.key, required this.id});
-
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     final showDetail = ref.watch(showProvider(id));
-
-//     return Scaffold(
-//       body: SafeArea(
-//         child: showDetail.when(
-//           data: (data) {
-//             return NestedScrollView(
-//               headerSliverBuilder: (context, innerBoxIsScrolled) => [
-//                 SliverAppBar(
-//                   expandedHeight: 220,
-//                   pinned: true,
-//                   flexibleSpace: FlexibleSpaceBar(
-//                     background: Image.network(data.backImg, fit: BoxFit.cover),
-//                   ),
-//                 ),
-//               ],
-//               body: Padding(
-//                 padding: const EdgeInsets.symmetric(
-//                   horizontal: 12.0,
-//                   vertical: 8,
-//                 ),
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     Row(
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       children: [
-//                         SizedBox(
-//                           height: 160,
-//                           width: 110,
-//                           child: Image.network(data.poster, fit: BoxFit.cover),
-//                         ),
-//                         const SizedBox(width: 16),
-//                         Expanded(
-//                           child: Column(
-//                             crossAxisAlignment: CrossAxisAlignment.start,
-//                             children: [
-//                               Text(
-//                                 data.title,
-//                                 style: const TextStyle(
-//                                   fontSize: 22,
-//                                   fontWeight: FontWeight.w500,
-//                                 ),
-//                                 softWrap: true,
-//                                 maxLines: 2,
-//                                 overflow: TextOverflow.ellipsis,
-//                               ),
-//                               const SizedBox(height: 8),
-//                               Container(
-//                                 decoration: BoxDecoration(
-//                                   borderRadius: BorderRadius.circular(5),
-//                                   color:
-//                                       AppColor.primaryColor, // Consistent color
-//                                 ),
-//                                 child: Padding(
-//                                   padding: const EdgeInsets.symmetric(
-//                                     vertical: 4,
-//                                     horizontal: 8,
-//                                   ),
-//                                   child: Text(
-//                                     "Score - ${data.score.toStringAsFixed(1)}", // Format score
-//                                     style: const TextStyle(
-//                                       color: Colors.white,
-//                                       fontSize: 14,
-//                                     ),
-//                                   ),
-//                                 ),
-//                               ),
-//                               const SizedBox(height: 12),
-//                               WatchStatus(
-//                                 id: id,
-//                                 // contentType: ContentType.show,
-//                               ),
-//                             ],
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                     const SizedBox(height: 20),
-//                     Expanded(
-//                       child: SingleChildScrollView(
-//                         child: Text(
-//                           data.overview,
-//                           style: const TextStyle(fontSize: 16),
-//                         ),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             );
-//           },
-//           error: (error, stackTrace) => Center(child: Text("Error: $error")),
-//           loading: () => const Center(child: CircularProgressIndicator()),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// class WatchStatus extends ConsumerWidget {
-//   final String id;
-//   const WatchStatus({super.key, required this.id});
-
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     bool isWatched = ref.watch(watchedShowProvider).contains(id);
-//     bool isPlanned = ref.watch(plannedShowProvider).contains(id);
-//     return Center(
-//       child: Padding(
-//         padding: const EdgeInsets.symmetric(horizontal: 2.0),
-//         child: Row(
-//           children: [
-//             if (!isPlanned)
-//               Expanded(
-//                 child: Container(
-//                   color: Color(0xffBD3039),
-//                   child: TextButton(
-//                     onPressed: () {
-//                       if (!isWatched) {
-//                         ref
-//                             .read(watchedShowProvider.notifier)
-//                             .addWatchedShow(id);
-//                         ref
-//                             .read(plannedShowProvider.notifier)
-//                             .removePlannedShow(id);
-//                       } else {
-//                         ref
-//                             .read(watchedShowProvider.notifier)
-//                             .removeWatchedShow(id);
-//                       }
-//                     },
-//                     child: Text(
-//                       "Watched",
-//                       style: TextStyle(color: Colors.white),
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//             if (!isWatched)
-//               Expanded(
-//                 child: Container(
-//                   color: AppColor.primaryColor,
-//                   child: TextButton(
-//                     onPressed: () {
-//                       if (!isPlanned) {
-//                         ref
-//                             .read(plannedShowProvider.notifier)
-//                             .addPlannedShow(id);
-//                         ref
-//                             .read(watchedShowProvider.notifier)
-//                             .removeWatchedShow(id);
-//                       } else {
-//                         ref
-//                             .read(plannedShowProvider.notifier)
-//                             .removePlannedShow(id);
-//                       }
-//                     },
-//                     child: Text(
-//                       "Planning",
-//                       style: TextStyle(color: Colors.white),
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_show_tracker/providers/saved_movie_list_provider.dart';
 import 'package:movie_show_tracker/providers/saved_show_list.dart';
 import 'package:movie_show_tracker/providers/show_provider.dart';
-import 'package:movie_show_tracker/util/colors.dart'; // Ensure you have this import for AppColor
-import 'package:movie_show_tracker/util/helper.dart'; // Ensure you have this import for date/time formatters
+import 'package:movie_show_tracker/util/colors.dart';
+import 'package:movie_show_tracker/util/helper.dart';
 
 class ShowPage extends ConsumerWidget {
   final String id;
@@ -213,14 +27,12 @@ class ShowPage extends ConsumerWidget {
                     background: Image.network(data.backImg, fit: BoxFit.cover),
                   ),
                   leading: IconButton(
-                    // Add a back button
                     icon: const Icon(Icons.arrow_back, color: Colors.white),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                 ),
               ],
               body: SingleChildScrollView(
-                // Changed to SingleChildScrollView for the body content
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16.0,
                   vertical: 12.0,
@@ -234,8 +46,8 @@ class ShowPage extends ConsumerWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
                           child: SizedBox(
-                            height: 180, // Slightly increased height for poster
-                            width: 120, // Slightly increased width for poster
+                            height: 180,
+                            width: 120,
                             child: Image.network(
                               data.poster,
                               fit: BoxFit.cover,
@@ -257,7 +69,6 @@ class ShowPage extends ConsumerWidget {
                                 overflow: TextOverflow.ellipsis,
                               ),
 
-                              // const SizedBox(height: 4),
                               const SizedBox(height: 12),
                               Row(
                                 children: [
@@ -268,9 +79,7 @@ class ShowPage extends ConsumerWidget {
                                   ),
                                   const SizedBox(width: 4),
                                   Text(
-                                    data.score.toStringAsFixed(
-                                      1,
-                                    ), // Format score to one decimal
+                                    data.score.toStringAsFixed(1),
                                     style: const TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
@@ -316,16 +125,13 @@ class ShowPage extends ConsumerWidget {
                               ),
                               const SizedBox(height: 8),
                               WatchStatus(id: data.id),
-                              // GenresChip(genres: data.genres)
                             ],
                           ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 24),
-                    // WatchStatus(id: id),
                     const SizedBox(height: 24),
-                    // GenresChip(genres: data.genres),
                     const Text(
                       "Overview",
                       style: TextStyle(
@@ -373,7 +179,6 @@ class GenresChip extends StatelessWidget {
   }
 }
 
-// Keep the common WatchStatus widget as it was, it's already refactored for both
 class WatchStatus extends ConsumerWidget {
   final String id;
 
@@ -389,18 +194,15 @@ class WatchStatus extends ConsumerWidget {
 
     return Center(
       child: Row(
-        mainAxisAlignment:
-            MainAxisAlignment.spaceEvenly, // Distribute space evenly
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          // Watched Button (visible if not planned)
           if (!isPlanned)
             Expanded(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: isWatched
                       ? Colors.redAccent
-                      : AppColor
-                            .primaryColor, // Red when watched, primary when not
+                      : AppColor.primaryColor,
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   shape: RoundedRectangleBorder(
@@ -422,16 +224,15 @@ class WatchStatus extends ConsumerWidget {
                 child: Text("Watched"),
               ),
             ),
-          const SizedBox(width: 10), // Space between buttons
-          // Planning Button (visible if not watched)
+          const SizedBox(width: 10),
+
           if (!isWatched)
             Expanded(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: isPlanned
                       ? Colors.amber[700]
-                      : AppColor
-                            .primaryColor, // Amber when planned, primary when not
+                      : AppColor.primaryColor,
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   shape: RoundedRectangleBorder(

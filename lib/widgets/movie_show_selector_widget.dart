@@ -20,8 +20,8 @@ class MovieShowSelectorWidget extends ConsumerWidget {
       height: 40,
       decoration: BoxDecoration(
         borderRadius: (isMovie)
-            ? BorderRadius.horizontal(left: Radius.circular(10))
-            : BorderRadius.horizontal(right: Radius.circular(10)),
+            ? const BorderRadius.horizontal(left: Radius.circular(10))
+            : const BorderRadius.horizontal(right: Radius.circular(10)),
         color: isSelected
             ? AppColor.primaryColor
             : AppColor.secondaryBackgroundColor,

@@ -9,14 +9,14 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 14),
+      padding: const EdgeInsets.symmetric(horizontal: 14),
       child: SingleChildScrollView(
         child: Center(
           child: Column(
             children: [
               AutoScrollCarousel(),
-              SizedBox(height: 18),
-              WidgetsContainer(
+              const SizedBox(height: 18),
+              const WidgetsContainer(
                 child: Column(
                   children: [
                     Text(
@@ -27,7 +27,6 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     ContentRowWidget(
-                      
                       title: "New",
                       movieType: "now_playing",
                       isMovie: true,
@@ -40,8 +39,8 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 22),
-              WidgetsContainer(
+              const SizedBox(height: 22),
+              const WidgetsContainer(
                 child: Column(
                   children: [
                     Text(
@@ -64,7 +63,7 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
             ],
           ),
         ),

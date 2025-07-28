@@ -27,7 +27,7 @@ class ContentListPage extends ConsumerWidget {
           child: movieList.when(
             data: (data) => ContentListWidget(data: data, isMovie: isMovie),
             error: (error, stackTrace) => Center(child: Text("No movie list")),
-            loading: () => Center(child: CircularProgressIndicator()),
+            loading: () => const Center(child: CircularProgressIndicator()),
           ),
         ),
       ),

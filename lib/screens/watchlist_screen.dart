@@ -48,7 +48,7 @@ class _WatchListPageState extends ConsumerState<WatchListPage> {
                   text: "Watched",
                   targetPage: 0,
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 StatusSelectionWidget(
                   isCur: curPage == 1,
                   pageController: pageController,
@@ -58,18 +58,18 @@ class _WatchListPageState extends ConsumerState<WatchListPage> {
               ],
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Expanded(
             child: PageView(
               controller: pageController,
               onPageChanged: (value) => setState(() => curPage = value),
               children: [
                 GridList(
-                  movieLi: (curType) ? watchedMovieLi : watchedShowLi,
+                  contentList: (curType) ? watchedMovieLi : watchedShowLi,
                   ref: ref,
                 ),
                 GridList(
-                  movieLi: (curType) ? plannedMovieLi : plannedShowLi,
+                  contentList: (curType) ? plannedMovieLi : plannedShowLi,
                   ref: ref,
                 ),
               ],
@@ -121,24 +121,24 @@ class StatusSelectionWidget extends StatelessWidget {
 }
 
 class GridList extends ConsumerWidget {
-  const GridList({super.key, required this.movieLi, required this.ref});
+  const GridList({super.key, required this.contentList, required this.ref});
 
-  final List<String> movieLi;
+  final List<String> contentList;
   final WidgetRef ref;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final curSelected = ref.watch(curTypeProvider);
     return GridView.builder(
-      itemCount: movieLi.length,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      itemCount: contentList.length,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         childAspectRatio: 0.68,
         crossAxisCount: 2,
       ),
       itemBuilder: (context, index) {
         final movie = (curSelected)
-            ? ref.watch(movieProvider(movieLi[index]))
-            : ref.watch(showProvider(movieLi[index]));
+            ? ref.watch(movieProvider(contentList[index]))
+            : ref.watch(showProvider(contentList[index]));
         return movie.when(
           data: (data) => ContentCardWidget(
             data: data,
@@ -146,7 +146,7 @@ class GridList extends ConsumerWidget {
             isParent: true,
           ),
           error: (error, stackTrace) => Center(child: Text("$error")),
-          loading: () => Center(child: CircularProgressIndicator()),
+          loading: () => const Center(child: CircularProgressIndicator()),
         );
       },
     );

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_show_tracker/screens/home_screen.dart';
 import 'package:movie_show_tracker/screens/search_screen.dart';
-import 'package:movie_show_tracker/screens/settings_screen.dart';
 import 'package:movie_show_tracker/screens/watchlist_screen.dart';
 import 'package:movie_show_tracker/util/colors.dart';
 import 'package:movie_show_tracker/widgets/movie_show_selector_widget.dart';
@@ -23,7 +22,6 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.green,
       backgroundColor: AppColor.backgroundColor,
       appBar: AppBar(
         backgroundColor: AppColor.backgroundColor,
@@ -32,9 +30,9 @@ class _MainScreenState extends State<MainScreen> {
 
         actions: (curScreen == 1 || curScreen == 2)
             ? [
-                MovieShowSelectorWidget(isMovie: true, type: "Movies"),
-                MovieShowSelectorWidget(isMovie: false, type: "Shows"),
-                SizedBox(width: 20),
+                const MovieShowSelectorWidget(isMovie: true, type: "Movies"),
+                const MovieShowSelectorWidget(isMovie: false, type: "Shows"),
+                const SizedBox(width: 20),
               ]
             : [],
       ),
@@ -45,9 +43,15 @@ class _MainScreenState extends State<MainScreen> {
         fixedColor: AppColor.primaryColor,
         elevation: 1,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.explore), label: "Explore"),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.explore),
+            label: "Explore",
+          ),
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: "Search",
+          ),
+          const BottomNavigationBarItem(
             icon: Icon(Icons.shop_two_sharp),
             label: "Library",
           ),

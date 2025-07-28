@@ -34,17 +34,15 @@ class MoviePage extends ConsumerWidget {
                 child: Column(
                   children: [
                     Row(
-                      // crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
                           height: 160,
                           width: 110,
                           child: Image.network(data.poster),
                         ),
-                        SizedBox(width: 16),
+                        const SizedBox(width: 16),
                         Expanded(
                           child: Column(
-                            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
@@ -65,14 +63,14 @@ class MoviePage extends ConsumerWidget {
                                 timeFormatter(data.runtime),
                                 style: TextStyle(fontSize: 16),
                               ),
-                              SizedBox(height: 4),
+                              const SizedBox(height: 4),
                               WatchStatus(id: id),
                             ],
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Expanded(
                       child: Text(
                         data.overview,
@@ -85,7 +83,7 @@ class MoviePage extends ConsumerWidget {
             );
           },
           error: (error, stackTrace) => Center(child: Text("$error")),
-          loading: () => Center(child: CircularProgressIndicator()),
+          loading: () => const Center(child: CircularProgressIndicator()),
         ),
       ),
     );
@@ -124,7 +122,7 @@ class WatchStatus extends ConsumerWidget {
                             .removeWatchedMovie(id);
                       }
                     },
-                    child: Text(
+                    child: const Text(
                       "Watched",
                       style: TextStyle(color: Colors.white),
                     ),
@@ -150,7 +148,7 @@ class WatchStatus extends ConsumerWidget {
                             .removePlannedMovie(id);
                       }
                     },
-                    child: Text(
+                    child: const Text(
                       "Planning",
                       style: TextStyle(color: Colors.white),
                     ),
