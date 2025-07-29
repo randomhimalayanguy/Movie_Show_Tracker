@@ -27,17 +27,17 @@ A Flutter-based mobile application for tracking movies and TV shows. Discover po
 
 **Home Page**
 
-<img width="720" height="1418" alt="image" src="https://github.com/user-attachments/assets/0772d0a0-ae80-4095-8116-dda66cff0908" />
+<img width="100" height="216" alt="image" src="https://github.com/user-attachments/assets/0772d0a0-ae80-4095-8116-dda66cff0908" />
 
 
 **Search Page**
 
-<img width="1063" height="2408" alt="image" src="https://github.com/user-attachments/assets/0518abc4-4b7a-440e-a54b-d26a840e96dc" />
+<img width="106" height="240" alt="image" src="https://github.com/user-attachments/assets/0518abc4-4b7a-440e-a54b-d26a840e96dc" />
 
 
 **Watch List Page**
 
-<img width="720" height="1442" alt="image" src="https://github.com/user-attachments/assets/3259d12c-2ac2-4093-aea0-60d6cfa5f92c" />
+<img width="100" height="216" alt="image" src="https://github.com/user-attachments/assets/3259d12c-2ac2-4093-aea0-60d6cfa5f92c" />
 
 
 ---
